@@ -1,0 +1,5 @@
+.book-image {
+    width: 200px; /* adjust the width to your liking */
+    height: 300px; /* adjust the height to your liking */
+    object-fit: cover; /* to maintain the aspect ratio */
+  }
