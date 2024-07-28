@@ -1,103 +1,174 @@
+// index.js
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
+require('dotenv').config(); // Load environment variables from .env file
 
-//middleware
-app.use(cors());
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // Specify your frontend URL here
+  credentials: true // Enable credentials
+}));
+
+app.use(bodyParser.json());
 app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET, // replace with a secure secret from env
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production' } // secure cookies in production
+}));
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = "mongodb+srv://pratieksonareisc:4VdtBchT1in5fC7X@cluster0.duvd1m7.mongodb.net/";
-
- 
-//Creating a MongoClient
+// MongoDB Connection
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
-
-
-MongoClient.connect(uri, function(err, client) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Connected to MongoDB');
-  }
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 async function run() {
-    try {
-        await client.connect();
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
 
-        const bookCollections = client.db("BookInventory").collection("books");
+    const adminCollection = client.db("BookInventory").collection("adminUsers");
+    const bookCollection = client.db("BookInventory").collection("books");
 
-        app.post("/upload-book", async (req, res) => {
-            const data = req.body;
-            const result = await bookCollections.insertOne(data);
-            res.send(result);
+    // Admin login route
+    app.post("/admin-login", async (req, res) => {
+      const { username, password } = req.body;
+      try {
+        const admin = await adminCollection.findOne({ username });
+        if (!admin || admin.password !== password) {
+          return res.status(401).send('Invalid username or password');
+        }
 
-        })
+        req.session.admin = { id: admin._id, username: admin.username };
+        res.status(200).send('Login successful');
+      } catch (error) {
+        console.error('Error during admin login:', error);
+        res.status(500).send('Server error');
+      }
+    });
 
-        app.get("/book-list", async (req, res) => {
-            const books = bookCollections.find();
-            const result = await books.toArray();
-            res.send(result);
-        })
+    // Route to add a new admin
+    app.post("/add-admin", async (req, res) => {
+      const { username, password } = req.body;
+      try {
+        const existingAdmin = await adminCollection.findOne({ username });
+        if (existingAdmin) {
+          return res.status(400).send('Admin with this username already exists');
+        }
 
-        app.patch("/book/:id", async (req, res) => {
-            const id = req.params.id;
-            const updateBookData = req.body;
-            const filter = { _id: new ObjectId(id)};
-            const updateDoc = {
-                $set: {
-                    ...updateBookData
-                },
-            }
-            const options = { upsert: true };
-            
-            const result = await bookCollections.updateOne(filter, updateDoc, options );
-            res.send(result);
-        })
+        const newAdmin = {
+          username,
+          password
+        };
 
-        app.delete("/book/:id", async (req, res) => {
-            const id = req.params.id;
-            const filter = { _id: new ObjectId(id)};
-            
-            const result = await bookCollections.deleteOne(filter);
-            res.send(result);
-        })
+        const result = await adminCollection.insertOne(newAdmin);
+        res.status(201).send(result);
+      } catch (error) {
+        console.error('Error adding new admin:', error);
+        res.status(500).send('Server error');
+      }
+    });
 
-        app.get("/book-list", async (req, res) => {
-            let query = {};
-            if(req.query?.category){
-                query = {category: req.query.category}
-            }
+    // Middleware to check admin session
+    // function checkAdminSession(req, res, next) {
+    //   if (!req.session.admin) {
+    //     return res.status(401).send('Unauthorized');
+    //   }
+    //   next();
+    // }
 
-            const result = await bookCollections.find(query).toArray();
-            res.send(result);
-        })
+    // Protected route example
+    app.get("/admin/protected", (req, res) => {
+      res.send('This is a protected admin route');
+    });
 
-        app.get("/book/:id", async (req, res) => {
-            const id = req.params.id;
-            const filter = { _id: new ObjectId(id)};
-            const result = await bookCollections.findOne(filter);
-            res.send(result);
-        })
+    // Route to upload a book
+    app.post("/upload-book", async (req, res) => {
+      const data = req.body;
 
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. Successfully connected to MongoDB.");
+      try {
+        const result = await bookCollection.insertOne(data);
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
 
-    } finally {
+    // Route to update a book
+    app.patch("/book/:id", async (req, res) => {
+      const id = req.params.id;
+      const updateBookData = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          ...updateBookData
+        },
+      };
+      const options = { upsert: true };
 
-    }
+      try {
+        const result = await bookCollection.updateOne(filter, updateDoc, options);
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
+
+    // Route to delete a book
+    app.delete("/book/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+
+      try {
+        const result = await bookCollection.deleteOne(filter);
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
+
+    // Public routes
+    app.get("/book-list", async (req, res) => {
+      let query = {};
+      if (req.query?.category) {
+        query = { category: req.query.category };
+      }
+
+      try {
+        const result = await bookCollection.find(query).toArray();
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
+
+    app.get("/book/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+
+      try {
+        const result = await bookCollection.findOne(filter);
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
+
+  } catch (error) {
+    console.error('Error during MongoDB connection:', error);
+  }
 }
-run().catch(console.dir);
+
+run();
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-
-})
+  console.log(`Server running on port ${port}`);
+});
