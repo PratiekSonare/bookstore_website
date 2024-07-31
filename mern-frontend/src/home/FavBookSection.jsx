@@ -11,7 +11,7 @@ function FavBookSection() {
         </div>
 
         <div className='md:w-1/2 space-y-6'>
-            <h2 className='text-5xl font-bold my-5 md:w-3/4 leading-snug'>Find your Favourite <span className='text-blue-700'>Book Here!</span> </h2>
+            <h2 className='text-5xl font-bold my-5 leading-snug text-left'>Find your Favourite <span className='text-blue-700'>Book Here!</span> </h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus iusto harum amet, sit commodi aut debitis ad consequatur voluptate nulla vitae dolorum consequuntur accusantium sapiente porro qui! Autem, molestiae dolorum.</p>
 
             <div className='flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14'>

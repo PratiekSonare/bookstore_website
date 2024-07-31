@@ -16,6 +16,7 @@ import ManageBook from '../dashboard/ManageBook';
 import EditBook from '../dashboard/EditBook';
 import AdminRoute from '../components/AdminRoute'; // Import the AdminRoute component
 import AdminLogin from '../components/AdminLogin'; // Import the AdminLogin component
+import RequestBook from '../components/RequestBook';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: 'book/:id',
         element: <SingleBook />,
         loader: ({ params }) => fetch(`http://localhost:5000/book/${params.id}`)
+      },
+      {
+        path: '/requestbook',
+        element: <RequestBook />
       },
       {
         index: true, // This will make /home the default route

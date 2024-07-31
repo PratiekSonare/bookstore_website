@@ -53,7 +53,7 @@ function BookForm() {
 
   return (
     <div className="px-4 my-12">
-      <h2 className="mb-8 text-3xl font-bold text-left">Add a Book</h2>
+      <h2 className="mb-8 text-3xl font-bold ml-96">Add a Book</h2>
 
       <form onSubmit={handleBookSubmit} className="flex max-w-md flex-col gap-8 ml-96">
         <div className="flex gap-8">

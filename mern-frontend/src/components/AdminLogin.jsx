@@ -39,19 +39,22 @@ const AdminLogin = () => {
   return (
     <div>
       <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
+      <form onSubmit={handleSubmit} className='flex flex-col justify-center align-middle space-y-50'>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            className='w-56'
+          />
+          
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        
         <button type="submit">Login</button>
       </form>
     </div>

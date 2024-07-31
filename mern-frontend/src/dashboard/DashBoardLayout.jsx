@@ -1,15 +1,28 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Sidebar from '../dashboard/Sidebar';
 import { Outlet } from 'react-router-dom';
 
-import Sidebar from './Sidebar'
+const DashBoardLayout = () => {
+  const navigate = useNavigate();
 
-function DashBoardLayout() {
+  const handleLogout = async () => {
+    try {
+      await axios.post('http://localhost:5000/admin-logout', {}, { withCredentials: true });
+      navigate('/admin-login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
-    <div className='flex gap-4 flex-col md:flex-row'>
-        <Sidebar />
-        <Outlet />
+    <div>
+      <nav>
+        <button onClick={handleLogout}>Logout</button>
+      </nav>
     </div>
-  )
-}
+  );
+};
 
-export default DashBoardLayout
+export default DashBoardLayout;

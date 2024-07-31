@@ -35,8 +35,8 @@ const NavBar = () => {
         { link: 'Home', path: '/' },
         { link: 'About', path: '/about' },
         { link: 'Shop', path: '/shop' },
-        { link: 'Blog', path: '/blog' },
-        { link: 'Add a Book', path: '/admin/dashboard' },
+        { link: 'Request a Book', path: '/requestbook'},
+        { link: 'Admin', path: '/admin-login' },
     ];
 
     return (

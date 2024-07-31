@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import DashBoardLayout from '../dashboard/DashBoardLayout';
+import Dashboard from '../dashboard/Dashboard';
 
 const AdminRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
@@ -26,7 +26,7 @@ const AdminRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? <DashBoardLayout/> : <Navigate to="/admin-login" />;
+  return isAuthenticated ? <Dashboard/> : <Navigate to="/admin-login" />;
 };
 
 export default AdminRoute;
