@@ -11,23 +11,8 @@ function FavBookSection() {
         </div>
 
         <div className='md:w-1/2 space-y-6'>
-            <h2 className='text-5xl font-bold my-5 leading-snug text-left'>Find your Favourite <span className='text-blue-700'>Book Here!</span> </h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus iusto harum amet, sit commodi aut debitis ad consequatur voluptate nulla vitae dolorum consequuntur accusantium sapiente porro qui! Autem, molestiae dolorum.</p>
-
-            <div className='flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14'>
-                <div>
-                    <h3 className='text-3xl font-bold'>800+</h3>
-                    <p className='text-base'>Book Listing</p>
-                </div>
-                <div>
-                    <h3 className='text-3xl font-bold'>550+</h3>
-                    <p className='text-base'>Register Users</p>
-                </div>
-                <div>
-                    <h3 className='text-3xl font-bold'>1200+</h3>
-                    <p className='text-base'>PDF Dowloads</p>
-                </div>
-            </div>
+            <h2 className='text-5xl font-bold text-black text-center'>Find your favourite <span className='text-blue-700 block mt-2 text-5xl'>Book Here!</span> </h2>
+            <p className='text-justify'> With collection of more than 50+ mainstream books, our library can be all yours! We might not always have the book you were determined to read. Don't worry, pal. Click on 'Request a Book' mentioned above and we'll see what we can do!</p>
 
             <Link to = '/shop' className='mt-8 block'><button className='bg-blue-700 text-white font-semibold px-5 py-2 rounded hover:bg-black transition-all duration-300'>Explore more!</button></Link>
         </div>

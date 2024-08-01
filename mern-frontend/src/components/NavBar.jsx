@@ -44,9 +44,7 @@ const NavBar = () => {
             <nav className={`py-4 lg:px-24 px-4 ${isSticky ? "sticky left-0 top-0 right-0 bg-blue-300" : ""}`}>
                 <div className='flex justify-between items-center text-base gap-8'>
                     <Link to="/">
-                        <span className="text-2xl font-bold text-blue-700 flex items-center">
-                            <GiBiceps /> PSAJ
-                        </span> 
+                        <img src="https://www.svgrepo.com/show/442866/book.svg" alt="" className='ml-10 w-10 h-10'/> 
                     </Link>
 
 

@@ -1,6 +1,6 @@
 .swiper {
-    width: 240px;
-    height: 320px;
+    width: 260px;
+    height: 400px;
   }
   
   .banner .swiper-slide {
@@ -14,43 +14,21 @@
   }
   
   .banner .swiper-slide:nth-child(1n) {
-    background-image: url('../assets/banner-books/book1.png');
+    background-image: url('../assets/banner-books/1book.png');
   }
   
   .banner .swiper-slide:nth-child(2n) {
-    background-image: url('../assets/banner-books/book2.png');
+    background-image: url('../assets/banner-books/2book.png');
   }
   
   .banner .swiper-slide:nth-child(3n) {
-    background-image: url('../assets/banner-books/book3.png');
+    background-image: url('../assets/banner-books/3book.png');
   }
   
   .banner .swiper-slide:nth-child(4n) {
-    background-image: url('../assets/banner-books/book4.png');
+    background-image: url('../assets/banner-books/4book.png');
   }
   
   .banner .swiper-slide:nth-child(5n) {
-    background-image: url('../assets/banner-books/book5.png');
+    background-image: url('../assets/banner-books/5book.png');
   }
-  
-  .banner .swiper-slide:nth-child(6n) {
-    background-image: url('../assets/banner-books/book1.png');
-  }
-  
-  .banner .swiper-slide:nth-child(7n) {
-    background-image: url('../assets/banner-books/book2.png');
-    
-  }
-  
-  .banner .swiper-slide:nth-child(8n) {
-    background-image: url('../assets/banner-books/book3.png');
-  }
-  
-  .banner .swiper-slide:nth-child(9n) {
-    background-image: url('../assets/banner-books/book4.png');
-  }
-  
-  .banner .swiper-slide:nth-child(10n) {
-    background-image: url('../assets/banner-books/book5.png');
-  }
-  
