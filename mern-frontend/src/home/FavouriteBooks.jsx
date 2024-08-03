@@ -9,7 +9,7 @@ const FavouriteBooks = () => {
         fetch("http://localhost:5000/book-list").then(res => res.json()).then(data => setBooks(data.slice(0, 8)))
     }, [])
   return (
-    <div>
+    <div className='mx-10'>
       <BookCards books={books} headline="Our Favourite Books" />
     </div>
   )

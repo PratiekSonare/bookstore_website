@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@material-tailwind/react';
 import './NavBar.css';
+import { FaCartShopping } from "react-icons/fa6";
+import { CgProfile } from "react-icons/cg";
 
-const NavBarAlt = () => {
+const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
   const [openNav, setOpenNav] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
-  // Toggle the mobile menu
-  const toggleMenu = () => {
-    setOpenNav(!openNav);
-  };
-
-  // Handle sticky header on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -29,7 +21,6 @@ const NavBarAlt = () => {
     };
   }, []);
 
-  // Handle resize event to close menu on larger screens
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 960) {
@@ -46,45 +37,48 @@ const NavBarAlt = () => {
 
   const navList = (
     <ul className="flex flex-col gap-8 lg:flex-row lg:gap-8 lg:mb-0 mb-4 text-[18px] text-black">
-      <Link to="">
+      <Link to="/">
         <li className='hover:text-purple-200'>Home</li>
       </Link>
-      <Link to="">
-        <li className='hover:text-purple-200'>About</li>
-      </Link>
-      <Link to="">
+      <Link to="/shop">
         <li className='hover:text-purple-200'>Library</li>
       </Link>
-      <Link to="">
+      <Link to="/requestbook">
         <li className='hover:text-purple-200'>Request A Book</li>
       </Link>
-      <Link to="">
+      <Link to="/contact">
         <li className='hover:text-purple-200'>Contact Us</li>
+      </Link>
+      <Link to="/cart">
+      <li className='hover:text-purple-200 cursor-pointer' onClick={''}>
+        <FaCartShopping style={{ width: '24px', height: '24px' }} />
+      </li>
+      </Link>
+      <Link to="/user-profile">
+      <li className='hover:text-purple-200 cursor-pointer' onClick={''}>
+        <CgProfile style={{ width: '24px', height: '24px' }} />
+      </li>
       </Link>
     </ul>
   );
 
   return (
-    <header className={`w-full fixed top-0 right-0 left-0 ${isSticky ? 'bg-yellow-100 shadow-lg' : 'bg-transparent'} transition-all ease-in-out duration-300`}>
+    <header className={`w-full fixed z-50 top-0 right-0 left-0 ${isSticky ? 'bg-yellow-100 shadow-lg' : 'bg-transparent'} transition-all ease-in-out duration-300`}>
       <nav className='rounded-b-full'>
-        <div className='flex justify-between z-50 h-20'>
+        <div className='flex justify-between h-20'>
           <div className='flex items-center flex-1 m-10'>
             <span className='text-3xl font-bold anton-regular'>yourLibrary.com</span>
           </div>
-
-          {/* Desktop Navigation */}
           <div className={`hidden lg:flex lg:items-center lg:justify-end lg:flex-1 ${isSticky ? 'text-black' : 'text-white'}`}>
             <div className='flex items-center gap-x-1 mr-10'>
               {navList}
             </div> 
           </div>
-
-          {/* Mobile Menu Toggle Button */}
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
             ripple={false}
-            onClick={toggleMenu}
+            onClick={''}
           >
             {openNav ? (
               <svg
@@ -118,7 +112,6 @@ const NavBarAlt = () => {
             )}
           </IconButton>
         </div>
-        {/* Mobile Navigation */}
         <div className={`lg:hidden ${openNav ? 'block' : 'hidden'}`}>
           <div className='flex flex-col items-center gap-y-4 bg-teal-200 text-black p-4'>
             {navList}

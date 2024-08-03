@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './test.css';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -37,26 +38,40 @@ const AdminLogin = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col justify-center align-middle space-y-50'>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            className='w-56'
-          />
-          
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
+    <div className='flex justify-around items-center h-screen'>
+      <div className='p-8 shadow-sm shadow-blue-600 transition-shadow duration-300 ease-in hover:shadow-xl hover:shadow-blue-600  rounded-full'>
+        <h1 className='text-5xl roboto-condensed-bold'>Admin Login</h1>
+      </div>
+      <div>
         
-        <button type="submit">Login</button>
-      </form>
+
+        <form className='flex flex-col' onSubmit={handleSubmit}>
+          <p className='text-left poppins-thin'>Username</p>
+          <div className='flex flex-col items-center mb-6'>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter username"
+              className='w-56 rounded-lg'
+            />
+          </div>
+
+        <p className='text-left poppins-thin'>Password</p>
+          <div className='flex flex-col items-center mb-6'>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              className='w-56 rounded-lg'
+            />
+          </div>
+
+          <button className='h-10 poppins-bold rounded-2xl bg-blue-gray-300 border-r-blue-gray-300 hover:bg-blue-600 border-y-deep-purple-500' type="submit">Login</button>
+        </form>
+      </div>
+      
     </div>
   );
 };

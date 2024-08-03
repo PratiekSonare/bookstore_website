@@ -20,11 +20,11 @@ function SimpleFooter() {
         <li>
           <Typography
             as="a"
-            href="#"
+            href="/admin-login"
             color="blue-gray"
             className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
           >
-            License
+            Admin
           </Typography>
         </li>
         <li>

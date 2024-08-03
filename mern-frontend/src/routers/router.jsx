@@ -1,6 +1,5 @@
 import {
   createBrowserRouter,
-  RouterProvider,
 } from 'react-router-dom';
 
 import App from '../App';
@@ -14,11 +13,22 @@ import Dashboard from '../dashboard/Dashboard';
 import UploadBook from '../dashboard/UploadBook';
 import ManageBook from '../dashboard/ManageBook';
 import EditBook from '../dashboard/EditBook';
-import AdminRoute from '../components/AdminRoute'; // Import the AdminRoute component
-import AdminLogin from '../components/AdminLogin'; // Import the AdminLogin component
+import AdminRoute from '../components/AdminRoute'; 
+import AdminLogin from '../components/AdminLogin';
 import RequestBook from '../components/RequestBook';
+import UserLogin from '../components/UserLogin';
+import UserSignUp from '../components/UserSignUp';
+import UserProfile from '../components/Profile';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <UserLogin />,
+  },
+  {
+    path: 'user-signup',
+    element: <UserSignUp />
+  },
   {
     path: '/',
     element: <App />,
@@ -45,12 +55,12 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`http://localhost:5000/book/${params.id}`)
       },
       {
-        path: '/requestbook',
+        path: 'requestbook',
         element: <RequestBook />
       },
       {
-        index: true, // This will make /home the default route
-        element: <Home />,
+        path: 'user-profile',
+        element: <UserProfile />
       }
     ],
   },
@@ -60,7 +70,7 @@ const router = createBrowserRouter([
       <AdminRoute>
         <DashBoardLayout />
       </AdminRoute>
-    ), // Protect the dashboard routes with AdminRoute
+    ),
     children: [
       {
         path: '/admin/dashboard',
@@ -83,7 +93,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin-login',
-    element: <AdminLogin />, // Admin login route
+    element: <AdminLogin />,
   }
 ]);
 

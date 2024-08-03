@@ -10,7 +10,7 @@ function FavBookSection() {
             <img src={favbookimg} alt="" className='rounded md:w-10/12'></img>
         </div>
 
-        <div className='md:w-1/2 space-y-6'>
+        <div className='flex flex-col justify-center items-center md:w-1/2 space-y-6'>
             <h2 className='text-5xl font-bold text-black text-center'>Find your favourite <span className='text-blue-700 block mt-2 text-5xl'>Book Here!</span> </h2>
             <p className='text-justify'> With collection of more than 50+ mainstream books, our library can be all yours! We might not always have the book you were determined to read. Don't worry, pal. Click on 'Request a Book' mentioned above and we'll see what we can do!</p>
 

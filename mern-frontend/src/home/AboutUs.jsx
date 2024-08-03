@@ -9,11 +9,9 @@ function AboutUs() {
             {/* <img src={} alt="" className='rounded md:w-10/12'></img> */}
         </div>
 
-        <div className=''>
+        <div className='flex flex-col justify-center items-center'>
             <h2 className='text-5xl font-bold my-5 leading-snug'>About <span className='text-blue-700'>Us</span></h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus iusto harum amet, sit commodi aut debitis ad consequatur voluptate nulla vitae dolorum consequuntur accusantium sapiente porro qui! Autem, molestiae dolorum.</p>
-
-
+            <p>We're just a couple of students from IIT Bombay with a pretty awesome book collection ;) </p>
         </div>
     </div>
 

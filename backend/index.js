@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
+const cartRoutes = require('./routes/cart.js');
 
 // Middleware
 app.use(cors({
@@ -21,6 +22,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
+app.use('/cart', cartRoutes);
+
 
 // MongoDB Connection
 const uri = process.env.MONGODB_URI;
@@ -36,6 +39,7 @@ async function run() {
 
     const adminCollection = client.db("BookInventory").collection("adminUsers");
     const bookCollection = client.db("BookInventory").collection("books");
+    const userCollection = client.db("BookInventory").collection("users");
 
     // Admin login route
     app.post("/admin-login", async (req, res) => {
