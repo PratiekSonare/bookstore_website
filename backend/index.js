@@ -4,7 +4,7 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 const cartRoutes = require('./routes/cart.js');
 
@@ -24,7 +24,6 @@ app.use(session({
 }));
 app.use('/cart', cartRoutes);
 
-
 // MongoDB Connection
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
@@ -37,9 +36,12 @@ async function run() {
     await client.connect();
     console.log('Connected to MongoDB');
 
-    const adminCollection = client.db("BookInventory").collection("adminUsers");
-    const bookCollection = client.db("BookInventory").collection("books");
-    const userCollection = client.db("BookInventory").collection("users");
+    const db = client.db("BookInventory");
+    const adminCollection = db.collection("adminUsers");
+    const bookCollection = db.collection("books");
+
+    // Create a text index on the book title for search
+    await bookCollection.createIndex({ title: 'text' });
 
     // Admin login route
     app.post("/admin-login", async (req, res) => {
@@ -155,8 +157,31 @@ async function run() {
       }
     });
 
-  } catch (error) {
-    console.error('Error during MongoDB connection:', error);
+    // Search route
+    app.get("/search", async (req, res) => {
+      const query = req.query.q || '';
+      const availability = 'Y';
+
+      try {
+        const book = await bookCollection.findOne({
+          title: query,
+          availability: availability
+        });
+
+        if (!book) {
+          // Book does not exist or availability is not 'Y'
+          return res.status(404).json({ message: 'Book not found or unavailable' });
+        }
+
+        // Book exists and is available
+        res.json(book);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    });
+
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err);
   }
 }
 

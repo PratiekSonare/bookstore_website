@@ -37,15 +37,16 @@ const UserSignUp = () => {
             alert("Sign Up successful!")
             navigate("/"); // Navigate to login after successful signup
         } catch (error) {
+            alert("Error logging in: ", error.message);
             console.error("Error signing up: ", error.message);
         }
     };
 
     return (
         <div>
-            <div className='flex justify-around items-center h-screen'>
+            <div className='flex justify-evenly items-center h-screen'>
                 <div className='flex h-80 w-1/4 m-0 justify-center'>
-                    <div className='flex flex-col justify-center items-center'>
+                    <div className='flex flex-col justify-center items-center ml-20'>
                         <span className='text-6xl font-bold anton-regular mb-8'>yourLibrary.com</span>
                         <div className='bg-red-500 rounded-xl w-60 h-1 mb-8'></div>
                         <span className='text-2xl poppins-thin mb-8'>because reading is fun!</span>
@@ -88,7 +89,7 @@ const UserSignUp = () => {
                                 className='h-10 poppins-bold rounded-2xl bg-blue-gray-300 border-r-blue-gray-300 hover:bg-blue-600 border-y-deep-purple-500'
                                 type="submit"
                             >
-                                Sign up!
+                                Create your account!
                             </button>
                             <p className="text-sm poppins-thin text-center mt-6">
                                 No account yet?{' '}

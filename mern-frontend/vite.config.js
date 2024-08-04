@@ -9,5 +9,14 @@ export default defineConfig({
         additionalData: `@import "flowbite/dist/flowbite.css";`
       }
     }
-  }
+  },
+  server: {
+    proxy: {
+      '/search': {
+        target: 'http://localhost:5000', // Adjust to your backend's address
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

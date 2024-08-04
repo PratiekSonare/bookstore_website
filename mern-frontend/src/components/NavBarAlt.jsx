@@ -37,7 +37,7 @@ const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
 
   const navList = (
     <ul className="flex flex-col gap-8 lg:flex-row lg:gap-8 lg:mb-0 mb-4 text-[18px] text-black">
-      <Link to="/">
+      <Link to="/home">
         <li className='hover:text-purple-200'>Home</li>
       </Link>
       <Link to="/shop">
