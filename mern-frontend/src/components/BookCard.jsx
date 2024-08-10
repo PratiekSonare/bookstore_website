@@ -51,17 +51,17 @@ const BookCards = ({headline, books}) => {
       >
         {
             books.map(book => <SwiperSlide key={book._id}>
-                <Link to = {`/book/${book._id}`}>
-                    <div className='relative border-l-light-blue-400'>
-                        <img src={book.imageURL} alt="" />
+                <Link to = {`/shop`}>
+                    <div className='relative border-l-light-blue-400 overflow-visible'>
+                        <img src={book.imageURL} alt="" className=' rounded-xl hover:scale-105 hover:shadow-lg transition-all ease-in-out duration-300'/>
                         <button className='absolute top-3 right-3 bg-blue-600 hover:bg-black p-2 rounded' onClick={''}>
                           <FaCartShopping className='w-4 h-4 text-white'/>
                         </button>
                     </div>
                     <div>
-                      <div>
-                        <h2 className='roboto-condensed-bold'> {book.title.length > 15 ? `${book.title.substring(0, 30)}...` : book.title} </h2>
-                        <h3 className='roboto-condensed-thin block mt-0 mb-10'>{book.author}</h3>
+                      <div className='mt-4'>
+                        <h2 className='roboto-condensed-bold text-center text-xl hover:text-2xl transition-all ease-in-out duration-300'> {book.title.length > 15 ? `${book.title.substring(0, 30)}...` : book.title} </h2>
+                        <h3 className='roboto-condensed-thin block mt-0 mb-10 text-l text-center text-gray-600'>{book.author}</h3>
                       </div>
                     </div>
                 </Link>

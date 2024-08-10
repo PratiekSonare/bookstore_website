@@ -16,6 +16,12 @@ h2 {
 
 .poppins-bold {
     font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-style: normal;
 }
@@ -25,7 +31,14 @@ h2 {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-  }
+}
+
+.quicksand-bold {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
 
 .roboto-condensed-thin {
 font-family: "Roboto Condensed", sans-serif;
@@ -42,9 +55,71 @@ font-style: normal;
     }
 
 .shadow-right {
-    box-shadow: rgba(0, 0, 0, 0.45) 25px 0px 20px -20px;
+    box-shadow: #00000073 25px 0px 20px -20px;
 }
 
 .shadow-login {
     box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
+
+.shadow-basic {
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.test-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensures columns are flexible */
+    grid-template-rows: repeat(4, 1fr); /* Ensures rows are flexible */
+    width: 100%; /* Stretches the grid across the full width */
+    height: 100vh; /* Stretches the grid to fill the viewport height */
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.item {
+    background-color: #ffffff; /* Set background to white */
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.item-1 {
+    grid-row: 1 / 2;
+    grid-column: 1 / 3; 
+}
+
+.item-2 {
+    grid-row: 1 / 6;
+    grid-column: 3 / 5;
+}
+
+.item-3 {
+    grid-row: 2 / 6;
+    grid-column: 1 / 3;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }

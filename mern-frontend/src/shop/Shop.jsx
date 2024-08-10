@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -35,32 +36,31 @@ const Shop = ({ addToCart = () => {} }) => {
   }
 
   return (
-    <div className='mt-28 px-4 lg:px-24 flex'>
+    <div className='my-28 px-4 lg:px-24 flex'>
       <div className='flex-1'>
-        <h2 className='text-5xl font-bold text-center'>Library!</h2>
+        <h2 className='text-5xl font-bold text-center'>Our Library</h2>
         <div className='mt-10 grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-4'>
           {books.map(book => (
             <Card key={book._id} className="max-w-[18rem] overflow-hidden">
-              <CardHeader
-                floated={false}
-                shadow={false}
-                color="transparent"
-                className="m-0 rounded-none"
-              >
-                <img
-                  src={book.imageURL}
-                  alt={book.title}
-                  className="w-full h-30 object-cover"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography variant="h6" color="blue-gray">
-                  {book.title}
-                </Typography>
-                <Typography variant="small" color="gray" className="mt-3 truncate">
-                  {book.description.substring(0, 100)}{book.description.length > 100 ? '...' : ''}
-                </Typography>
-              </CardBody>
+              <Link to={`/book/${book._id}`}>
+                <CardHeader
+                  floated={false}
+                  shadow={false}
+                  color="transparent"
+                  className="m-0 rounded-none"
+                >
+                  <img
+                    src={book.imageURL}
+                    alt={book.title}
+                    className="w-full h-30 object-cover"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h6" color="blue-gray" className='mb-10'>
+                    {book.title}
+                  </Typography>
+                </CardBody>
+              </Link>
               <CardFooter className="absolute mt-10 bottom-0 left-0 right-0 p-4">
                 <Button
                   className="w-full bg-blue-700 rounded-b-xl text-center font-normal"

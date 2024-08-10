@@ -170,7 +170,7 @@ async function run() {
 
         if (!book) {
           // Book does not exist or availability is not 'Y'
-          return res.status(404).json({ message: 'Book not found or unavailable' });
+          return res.status(404).json({ message: 'Book unavailable, please mention the correct title of the book or request the book you intend to read.' });
         }
 
         // Book exists and is available

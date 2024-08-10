@@ -11,11 +11,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
 const UserSignUp = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState(''); // State for phone number
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -28,16 +28,17 @@ const UserSignUp = () => {
             const userProfile = {
               uid: user.uid,
               email: user.email,
+              phone: phone, // Add phone number to profile
               // Add other profile fields as needed
             };
         
             await setDoc(doc(db, "users", user.uid), userProfile);
         
             console.log("User signed up and profile saved:", userProfile);
-            alert("Sign Up successful!")
+            alert("Sign Up successful!");
             navigate("/"); // Navigate to login after successful signup
         } catch (error) {
-            alert("Error logging in: ", error.message);
+            alert("Error signing up: ", error.message);
             console.error("Error signing up: ", error.message);
         }
     };
@@ -66,6 +67,20 @@ const UserSignUp = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     placeholder="Enter email"
+                                    className='w-56 rounded-lg'
+                                />
+                            </div>
+
+                            <p className='text-left poppins-thin'>
+                                <label htmlFor="phone">Phone Number</label>
+                            </p>
+                            <div className='flex flex-col items-center mb-6'>
+                                <input
+                                    id="phone"
+                                    type="tel"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    placeholder="Enter phone number"
                                     className='w-56 rounded-lg'
                                 />
                             </div>

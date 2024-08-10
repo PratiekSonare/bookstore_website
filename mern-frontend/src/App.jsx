@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import NavBarAlt from './components/NavBarAlt';
@@ -9,13 +10,13 @@ const App = () => {
   const showNavbar = location.pathname !== '/'; // Hide navbar on root (login) route
 
   return (
-    <div className='min-h-screen'>
-      {showNavbar && <NavBarAlt />}
-      <div>
-        <Outlet />
+      <div className='min-h-screen'>
+        {showNavbar && <NavBarAlt />}
+        <div>
+          <Outlet />
+        </div>
+        <SimpleFooter />
       </div>
-      <SimpleFooter />
-    </div>
   );
 };
 

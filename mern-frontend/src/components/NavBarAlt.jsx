@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@material-tailwind/react';
 import './NavBar.css';
 import { FaCartShopping } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
+import CartSidebar from '../shop/Cartsidebar';
 
-const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
+import './test.css';
+
+const NavBarAlt = ({ cartItems, removeFromCart }) => {
   const [openNav, setOpenNav] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,15 +53,13 @@ const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
       <Link to="/contact">
         <li className='hover:text-purple-200'>Contact Us</li>
       </Link>
-      <Link to="/cart">
-      <li className='hover:text-purple-200 cursor-pointer' onClick={''}>
+      <li className='hover:text-purple-200 cursor-pointer' onClick={() => setSidebarOpen(true)}>
         <FaCartShopping style={{ width: '24px', height: '24px' }} />
       </li>
-      </Link>
-      <Link to="/user-profile">
-      <li className='hover:text-purple-200 cursor-pointer' onClick={''}>
-        <CgProfile style={{ width: '24px', height: '24px' }} />
-      </li>
+      <Link to="/checkout">
+        <li className='hover:text-purple-200 cursor-pointer'>
+          <CgProfile style={{ width: '24px', height: '24px' }} />
+        </li>
       </Link>
     </ul>
   );
@@ -67,18 +69,20 @@ const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
       <nav className='rounded-b-full'>
         <div className='flex justify-between h-20'>
           <div className='flex items-center flex-1 m-10'>
-            <span className='text-3xl font-bold anton-regular'>yourLibrary.com</span>
+            <Link to="/home">
+              <span className='text-3xl font-bold anton-regular'>yourLibrary.com</span>
+            </Link>
           </div>
           <div className={`hidden lg:flex lg:items-center lg:justify-end lg:flex-1 ${isSticky ? 'text-black' : 'text-white'}`}>
             <div className='flex items-center gap-x-1 mr-10'>
               {navList}
-            </div> 
+            </div>
           </div>
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
             ripple={false}
-            onClick={''}
+            onClick={() => setOpenNav(!openNav)}
           >
             {openNav ? (
               <svg
@@ -118,6 +122,13 @@ const NavBarAlt = ({ cartItems, removeFromCart, updateQuantity }) => {
           </div>
         </div>
       </nav>
+      {sidebarOpen && (
+        <CartSidebar
+          cart={cartItems}
+          onClose={() => setSidebarOpen(false)}
+          onRemove={removeFromCart}
+        />
+      )}
     </header>
   );
 };
